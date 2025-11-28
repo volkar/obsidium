@@ -335,6 +335,29 @@ obsidium.updateOptions({
 Removes all lightbox DOM elements and detaches all associated listeners.
 **Parameters:** None
 
+## Integration with Lumosaic image gallery
+
+You can use Obsidium with [Lumosaic](https://lumosaic.syntheticsymbiosis.com) out of the box:
+
+```html
+<div id="lumosaic"></div>
+```
+
+```javascript
+const images = [
+    { src: "https://picsum.photos/800/600?random=1", width: 800, height: 600 },
+    { src: "https://picsum.photos/800/600?random=2", width: 800, height: 600 },
+    { src: "https://picsum.photos/800/800?random=3", width: 800, height: 800 },
+    { src: "https://picsum.photos/600/800?random=4", width: 600, height: 800 },
+    { src: "https://picsum.photos/800/600?random=5", width: 800, height: 600 },
+    { src: "https://picsum.photos/800/800?random=6", width: 800, height: 800 },
+]
+const lumosaic = new Lumosaic("lumosaic", images).init().then(() => {
+    // Bind Obsidium
+    new Obsidium("#lumosaic").init()
+})
+```
+
 ## Browser Support
 
 Obsidium works in all modern browsers.
