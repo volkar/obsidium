@@ -1,0 +1,59 @@
+.animation-in-prev-bounce {
+    animation: obsidium-bounceFromLeft 0.4s forwards cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animation-out-prev-bounce {
+    animation: obsidium-bounceToLeft 0.2s forwards ease-in;
+}
+
+.animation-in-next-bounce {
+    animation: obsidium-bounceFromRight 0.4s forwards cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animation-out-next-bounce {
+    animation: obsidium-bounceToRight 0.2s forwards ease-in;
+}
+
+@keyframes obsidium-bounceToRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(12em);
+        opacity: 0;
+    }
+}
+
+@keyframes obsidium-bounceFromLeft {
+    from {
+        transform: translateX(-12em);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes obsidium-bounceToLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-12em);
+        opacity: 0;
+    }
+}
+
+@keyframes obsidium-bounceFromRight {
+    from {
+        transform: translateX(12em);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

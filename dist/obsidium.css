@@ -1,0 +1,611 @@
+/* Container */
+
+.obsidium {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms ease;
+    backdrop-filter: blur(10px);
+}
+
+.obsidium.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.obsidium-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Wrapper */
+
+.obsidium-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+}
+.has-thumbnails .obsidium-wrapper {
+    height: calc(100% - (var(--thumbnail-gap) * 2 + var(--thumbnail-size)));
+}
+
+.obsidium.active .obsidium-wrapper.active {
+    pointer-events: all;
+    z-index: 2;
+    opacity: 1;
+}
+
+/* Background */
+
+.obsidium-wrapper-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+/* Image */
+
+.obsidium-image {
+    position: relative;
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: none;
+    user-select: none;
+    position: relative;
+    z-index: 2;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: darken;
+}
+
+.obsidium-image.zoomed {
+    max-width: none;
+    max-height: none;
+    cursor: grab;
+}
+
+.obsidium-image.zoomed:active {
+    cursor: grabbing;
+}
+
+/* Buttons */
+
+.obsidium-btn {
+    position: absolute;
+    opacity: 0.5;
+    border: none;
+    font-size: 1.2em;
+    padding: 1em;
+    cursor: pointer;
+    z-index: 5;
+    transition: opacity 0.3s ease;
+    background-color: transparent;
+}
+
+.obsidium-btn svg {
+    width: 1.2rem;
+    height: auto;
+}
+
+.obsidium-btn:active,
+.obsidium-btn:focus-visible:active {
+    outline: none;
+}
+
+@media (hover: hover) {
+    .obsidium-btn:hover {
+        opacity: 1;
+    }
+}
+
+/* Prev button */
+
+.obsidium-prev {
+    padding: 2rem 0.6rem;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.has-thumbnails:not(.obsidium-wrapper-type-content) .obsidium-prev {
+    top: calc(50% - (var(--thumbnail-gap) * 2 + var(--thumbnail-size)) / 2);
+}
+
+/* Next button */
+
+.obsidium-next {
+    padding: 2rem 0.6rem;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.has-thumbnails:not(.obsidium-wrapper-type-content) .obsidium-next {
+    top: calc(50% - (var(--thumbnail-gap) * 2 + var(--thumbnail-size)) / 2);
+}
+
+.obsidium-close {
+    padding: 0.6rem;
+    top: 0;
+    right: 0;
+}
+
+/* Info button */
+
+.obsidium-info {
+    padding: 0.6rem;
+    bottom: 0;
+    right: 0;
+}
+.has-thumbnails .obsidium-info {
+    bottom: calc(var(--thumbnail-gap) * 2 + var(--thumbnail-size));
+}
+.has-thumbnails.interface-hidden .obsidium-info {
+    bottom: 0;
+}
+.obsidium-wrapper-type-content .obsidium-info {
+    bottom: 0;
+}
+
+/* Zoom in button */
+
+.obsidium-zoom-in {
+    padding: 0.6rem;
+    top: 0;
+    left: 0;
+}
+
+/* Zoom out button */
+
+.obsidium-zoom-out {
+    padding: 0.6rem;
+    top: 0;
+    left: 2.4rem;
+}
+
+/* Interface button */
+
+.obsidium-interface {
+    padding: 0.6rem;
+    bottom: 0;
+    left: 0;
+}
+.has-thumbnails .obsidium-interface {
+    bottom: calc(var(--thumbnail-gap) * 2 + var(--thumbnail-size));
+}
+.has-thumbnails.interface-hidden .obsidium-interface {
+    bottom: 0;
+}
+.obsidium-wrapper-type-content .obsidium-interface {
+    bottom: 0;
+}
+
+/* Counter */
+
+.obsidium-counter {
+    position: absolute;
+    top: 0.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 0.9em;
+    font-weight: 400;
+    z-index: 5;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.obsidium-zoom-ratio {
+    position: absolute;
+    top: 2.8rem;
+    left: 0.7rem;
+    font-size: 0.9em;
+    font-weight: 400;
+    z-index: 5;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+/* Title */
+
+.obsidium-title {
+    position: absolute;
+    width: 100vw;
+    bottom: 0;
+    left: 0;
+    padding: 0.2rem 0;
+    text-align: center;
+    z-index: 2;
+    line-height: 1.2em;
+    pointer-events: none;
+}
+
+.obsidium-title > div {
+    text-align: center;
+    border-radius: 10rem;
+    padding: 0.2rem 1rem;
+    margin: 0 auto;
+    display: inline-block;
+    max-width: calc(100vw - 6rem);
+    line-height: 1.2em;
+    font-size: 0.9em;
+}
+@media screen and (min-width: 768px) {
+    .obsidium-title > div {
+        font-size: 1em;
+    }
+}
+
+/* Info */
+
+.obsidium-info-wrapper {
+    position: absolute;
+    max-width: 17rem;
+    bottom: 2.5rem;
+    right: 0.6rem;
+    border-radius: 0.3rem;
+    padding: 0.7rem;
+    z-index: 20;
+    backdrop-filter: blur(10px);
+    font-weight: 300;
+    font-size: 0.8rem;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+    max-height: calc(100vh - 2.5rem);
+    overflow: auto;
+}
+.has-thumbnails .obsidium-info-wrapper {
+    bottom: calc(var(--thumbnail-gap) * 2 + var(--thumbnail-size) + 2.5rem);
+    max-height: calc(100vh - (var(--thumbnail-gap) * 2 + var(--thumbnail-size) + 4rem));
+}
+.info .obsidium-info-wrapper {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.obsidium-info-headings {
+    margin: 0 0 0.2rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.obsidium-info-date {
+    opacity: 0.6;
+    margin: 0 0 1rem 0;
+}
+
+.obsidium-info-keybindings:not(:first-child) {
+    margin-top: 1.4rem;
+}
+.obsidium-info-keybindings p {
+    margin: 0 0 0.7rem 0;
+}
+.obsidium-info-keybindings p:last-child {
+    margin: 0;
+}
+.obsidium-info-key {
+    font-weight: 600;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+    margin-right: 0.3rem;
+}
+
+.obsidium-info-exif {
+    margin: 1rem 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0.3rem;
+}
+
+.obsidium-info-exif > div {
+    box-sizing: border-box;
+    padding: 0.25rem 0.5rem;
+    flex: 0 0 50%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.obsidium-info-exif > div.obsidium-info-exif-full {
+    flex: 0 0 100%;
+}
+
+.obsidium-info-exif > div svg {
+    width: 1.2rem;
+    height: auto;
+}
+.obsidium-info-exif > div svg.obsidium-info-svg-small {
+    width: 1.1rem;
+    margin-right: 0.1rem;
+}
+.obsidium-info-gps {
+    margin-top: 0.7rem;
+}
+
+/* Content type */
+
+.obsidium-type-content .obsidium-wrapper > img {
+    display: none;
+}
+
+.obsidium-type-image .obsidium-content-wrapper {
+    display: none;
+}
+
+/* Text content */
+
+.obsidium-content-wrapper {
+    position: absolute;
+    width: 100vw;
+    height: 100dvh;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    overflow: auto;
+}
+.obsidium-content-box {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    pointer-events: all;
+    min-height: 100dvh;
+}
+
+.obsidium-content-body {
+    margin: 2.5rem 0;
+    padding: 2.5rem;
+    border-radius: 0.5rem;
+}
+@media screen and (min-width: 768px) {
+    .obsidium-content-body {
+        padding: 2rem;
+        max-width: 60rem;
+    }
+}
+
+/* Thumbnails */
+
+.obsidium-thumbnails-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 3;
+    overflow: auto;
+}
+
+.obsidium-thumbnails {
+    margin: 0 auto;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 0;
+    opacity: 1;
+    transition: opacity 300ms ease;
+}
+
+.obsidium-thumbnail {
+    display: inline-block;
+    vertical-align: baseline;
+    width: var(--thumbnail-size);
+    height: var(--thumbnail-size);
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    opacity: 0.4;
+    margin: var(--thumbnail-gap) calc(var(--thumbnail-gap) / 2);
+    border-radius: 0.2rem;
+}
+.obsidium-thumbnail.active {
+    opacity: 1;
+}
+@media (hover: hover) {
+    .obsidium-thumbnail:hover {
+        opacity: 1;
+    }
+}
+
+/* Hidden interface */
+
+.obsidium-hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.interface-hidden.has-thumbnails .obsidium-wrapper {
+    height: 100%;
+}
+
+/* Preloader */
+
+.obsidium-preload {
+    position: absolute;
+    overflow: hidden;
+    left: -9999px;
+    top: -9999px;
+    height: 1px;
+    width: 1px;
+    opacity: 0.1;
+}
+
+/* Theme Dark */
+
+.obsidium-theme-dark {
+    color: #ffffff;
+    background: #141820ea;
+}
+.obsidium-theme-dark .obsidium-image {
+    box-shadow: 0 0.3em 1em #00000030;
+    background-color: #00000030;
+}
+.obsidium-theme-dark .obsidium-btn {
+    color: #ffffff;
+}
+.obsidium-theme-dark .obsidium-btn:focus-visible {
+    outline: 2px dotted #657193ff;
+}
+.obsidium-theme-dark .obsidium-zoom-ratio,
+.obsidium-theme-dark .obsidium-counter,
+.obsidium-theme-dark .obsidium-title > div {
+    color: #ffffff;
+    text-shadow: 0 0 0.3rem #000000, 0 0 0.5rem #000000;
+}
+.obsidium-theme-dark .obsidium-info-wrapper {
+    color: #ffffff;
+    background: #141820ea;
+    box-shadow: 0 0.3em 1em #00000030;
+}
+.obsidium-theme-dark .obsidium-info-key {
+    background: #000000;
+}
+.obsidium-theme-dark .obsidium-info-exif {
+    border: 1px dashed #ffffff33;
+}
+.obsidium-theme-dark .obsidium-info-gps a {
+    color: #ffffff;
+}
+.obsidium-theme-dark .obsidium-thumbnail {
+    background-color: #000000;
+}
+.obsidium-content-body {
+    background-color: #00000044;
+}
+
+/* Theme Light */
+
+.obsidium-theme-light {
+    color: #181a1d;
+    background: #f4f7fdea;
+}
+.obsidium-theme-light .obsidium-image {
+    box-shadow: 0 0.3em 1em #181a1d20;
+    background-color: #181a1d30;
+}
+.obsidium-theme-light .obsidium-btn {
+    color: #181a1d;
+}
+.obsidium-theme-light .obsidium-btn:focus-visible {
+    outline: 2px dotted #657193ff;
+}
+.obsidium-theme-light .obsidium-zoom-ratio {
+    color: #181a1d;
+}
+.obsidium-theme-light .obsidium-counter,
+.obsidium-theme-light .obsidium-title > div {
+    color: #ffffff;
+    text-shadow: 0 0 0.3rem #000000;
+}
+.obsidium-theme-light .obsidium-info-wrapper {
+    color: #181a1d;
+    background: #f4f7fdea;
+    box-shadow: 0 0.3em 1em #181a1d14;
+}
+.obsidium-theme-light .obsidium-info-key {
+    background: #ffffff;
+}
+.obsidium-theme-light .obsidium-info-exif {
+    border: 1px dashed #181a1d33;
+}
+.obsidium-theme-light .obsidium-info-gps a {
+    color: #181a1d;
+}
+.obsidium-theme-light .obsidium-thumbnail {
+    background-color: #ffffff;
+}
+
+/* Default animation (short-slide) */
+
+.animation-in-prev-short-slide {
+    animation: obsidium-shortSlideFromLeft 0.3s forwards ease;
+}
+
+.animation-out-prev-short-slide {
+    animation: obsidium-shortSlideToLeft 0.3s forwards ease;
+}
+
+.animation-in-next-short-slide {
+    animation: obsidium-shortSlideFromRight 0.3s forwards ease;
+}
+
+.animation-out-next-short-slide {
+    animation: obsidium-shortSlideToRight 0.3s forwards ease;
+}
+
+@keyframes obsidium-shortSlideToRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(4em);
+        opacity: 0;
+    }
+}
+
+@keyframes obsidium-shortSlideFromLeft {
+    from {
+        transform: translateX(-4em);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes obsidium-shortSlideToLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-4em);
+        opacity: 0;
+    }
+}
+
+@keyframes obsidium-shortSlideFromRight {
+    from {
+        transform: translateX(4em);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

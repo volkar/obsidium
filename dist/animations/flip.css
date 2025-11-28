@@ -1,0 +1,59 @@
+.animation-in-prev-flip {
+    animation: obsidium-flipFromLeft 0.3s forwards ease-out;
+}
+
+.animation-out-prev-flip {
+    animation: obsidium-flipToLeft 0.3s forwards ease-in;
+}
+
+.animation-in-next-flip {
+    animation: obsidium-flipFromRight 0.3s forwards ease-out;
+}
+
+.animation-out-next-flip {
+    animation: obsidium-flipToRight 0.3s forwards ease-in;
+}
+
+@keyframes obsidium-flipToRight {
+    from {
+        transform: perspective(1000px) rotateY(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: perspective(1000px) rotateY(-90deg) translateX(5em);
+        opacity: 0;
+    }
+}
+
+@keyframes obsidium-flipFromLeft {
+    from {
+        transform: perspective(1000px) rotateY(90deg) translateX(-5em);
+        opacity: 0;
+    }
+    to {
+        transform: perspective(1000px) rotateY(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes obsidium-flipToLeft {
+    from {
+        transform: perspective(1000px) rotateY(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: perspective(1000px) rotateY(90deg) translateX(-5em);
+        opacity: 0;
+    }
+}
+
+@keyframes obsidium-flipFromRight {
+    from {
+        transform: perspective(1000px) rotateY(-90deg) translateX(5em);
+        opacity: 0;
+    }
+    to {
+        transform: perspective(1000px) rotateY(0deg);
+        opacity: 1;
+    }
+}

@@ -1,0 +1,59 @@
+.animation-in-prev-zoom {
+    animation: obsidium-zoomFromLeft 0.4s forwards cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.animation-out-prev-zoom {
+    animation: obsidium-zoomToLeft 0.4s forwards ease-in;
+}
+
+.animation-in-next-zoom {
+    animation: obsidium-zoomFromRight 0.4s forwards cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.animation-out-next-zoom {
+    animation: obsidium-zoomToRight 0.4s forwards ease-in;
+}
+
+@keyframes obsidium-zoomToRight {
+    from {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(10em) scale(0.7);
+        opacity: 0;
+    }
+}
+
+@keyframes obsidium-zoomFromLeft {
+    from {
+        transform: translateX(-10em) scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes obsidium-zoomToLeft {
+    from {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-10em) scale(0.7);
+        opacity: 0;
+    }
+}
+
+@keyframes obsidium-zoomFromRight {
+    from {
+        transform: translateX(10em) scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+    }
+}

@@ -1,0 +1,67 @@
+.animation-in-prev-stack {
+    animation: obsidium-stackFromLeft 0.3s forwards ease-out;
+}
+
+.animation-out-prev-stack {
+    animation: obsidium-stackToLeft 0.3s forwards ease-in;
+}
+
+.animation-in-next-stack {
+    animation: obsidium-stackFromRight 0.3s forwards ease-out;
+}
+
+.animation-out-next-stack {
+    animation: obsidium-stackToRight 0.3s forwards ease-in;
+}
+
+@keyframes obsidium-stackToRight {
+    from {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+        z-index: 2;
+    }
+    to {
+        transform: translateX(8em) scale(0.85);
+        opacity: 0;
+        z-index: 1;
+    }
+}
+
+@keyframes obsidium-stackFromLeft {
+    from {
+        transform: translateX(-3em) scale(0.85);
+        opacity: 0;
+        z-index: 1;
+    }
+    to {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+        z-index: 2;
+    }
+}
+
+@keyframes obsidium-stackToLeft {
+    from {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+        z-index: 2;
+    }
+    to {
+        transform: translateX(-8em) scale(0.85);
+        opacity: 0;
+        z-index: 1;
+    }
+}
+
+@keyframes obsidium-stackFromRight {
+    from {
+        transform: translateX(3em) scale(0.85);
+        opacity: 0;
+        z-index: 1;
+    }
+    to {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+        z-index: 2;
+    }
+}

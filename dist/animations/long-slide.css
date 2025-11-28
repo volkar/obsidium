@@ -1,0 +1,59 @@
+.animation-in-prev-long-slide {
+    animation: obsidium-longSlideFromLeft 0.3s forwards ease;
+}
+
+.animation-out-prev-long-slide {
+    animation: obsidium-longSlideToLeft 0.3s forwards ease;
+}
+
+.animation-in-next-long-slide {
+    animation: obsidium-longSlideFromRight 0.3s forwards ease;
+}
+
+.animation-out-next-long-slide {
+    animation: obsidium-longSlideToRight 0.3s forwards ease;
+}
+
+@keyframes obsidium-longSlideToRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(15em);
+        opacity: 0;
+    }
+}
+
+@keyframes obsidium-longSlideFromLeft {
+    from {
+        transform: translateX(-15em);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes obsidium-longSlideToLeft {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-15em);
+        opacity: 0;
+    }
+}
+
+@keyframes obsidium-longSlideFromRight {
+    from {
+        transform: translateX(15em);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

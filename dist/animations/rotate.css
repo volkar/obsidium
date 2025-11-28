@@ -1,0 +1,59 @@
+.animation-in-prev-rotate {
+    animation: obsidium-rotateFromLeft 0.3s forwards ease-out;
+}
+
+.animation-out-prev-rotate {
+    animation: obsidium-rotateToLeft 0.3s forwards ease-in;
+}
+
+.animation-in-next-rotate {
+    animation: obsidium-rotateFromRight 0.3s forwards ease-out;
+}
+
+.animation-out-next-rotate {
+    animation: obsidium-rotateToRight 0.3s forwards ease-in;
+}
+
+@keyframes obsidium-rotateToRight {
+    from {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(10em) rotate(15deg);
+        opacity: 0;
+    }
+}
+
+@keyframes obsidium-rotateFromLeft {
+    from {
+        transform: translateX(-10em) rotate(-15deg);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes obsidium-rotateToLeft {
+    from {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(-10em) rotate(-15deg);
+        opacity: 0;
+    }
+}
+
+@keyframes obsidium-rotateFromRight {
+    from {
+        transform: translateX(10em) rotate(15deg);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+}
