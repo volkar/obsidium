@@ -247,6 +247,7 @@ new Obsidium("obsidium", ima).init()
 | `title`                      | boolean | `true`             | Displays the slide title below the image.                                                                         |
 | `info`                       | boolean | `true`             | Enables the EXIF/info panel.                                                                                      |
 | `hide`                       | boolean | `true`             | Allows the interface (controls, overlays) to be hidden or shown.                                                  |
+| `loadExif`                   | boolean | `true`             | Allows EXIF loading from images using the `exifr` library.                                                        |
 | `thumbnails`                 | boolean | `true`             | Enables the thumbnail strip under the viewer.                                                                     |
 | `thumbnailsSize`             | string  | `3rem`             | Defines the size of thumbnails (CSS unit).                                                                        |
 | `thumbnailsGap`              | string  | `0.25rem`          | Defines spacing between thumbnails (CSS unit).                                                                    |

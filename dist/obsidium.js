@@ -1,5 +1,5 @@
 /**
- * Obsidium 1.0.0
+ * Obsidium 1.0.1
  * Fullscreen image lightbox with zoom, pan, smooth transitions, and keyboard / touch navigation - zero dependencies
  * Obsidium is a descendant of the 2016 Obsidian library that was never released.
  *
@@ -19,6 +19,7 @@ class Obsidium {
             title: true,
             info: true,
             hide: true,
+            loadExif: true,
             thumbnails: true,
             thumbnailsSize: '3rem',
             thumbnailsGap: '0.25rem',
@@ -666,6 +667,7 @@ class Obsidium {
             this.lightbox.classList.add('obsidium-wrapper-type-image')
             this.currentImage.src = element.src
             if (element.preview) {
+                // Set low-resolution preview for background, while high-resolution image is loading
                 this.currentImage.style.backgroundImage = 'url(' + element.preview + ')'
             }
         } else if (element.text || element.element) {
@@ -817,7 +819,7 @@ class Obsidium {
         if (element.exif) {
             // Check if EXIF info already cached on element to avoid redundant fetches
             return element.exif
-        } else if (element.src) {
+        } else if (element.src && this.options.loadExif === true) {
             // Check if exifr is loaded
             if (typeof exifr !== 'undefined') {
                 let exif = false
