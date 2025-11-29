@@ -224,7 +224,7 @@ Ensure that image files are served from the same origin or have CORS properly co
 ```
 
 ```javascript
-new Obsidium("obsidium", ima).init()
+new Obsidium("obsidium", images).init()
 ```
 
 ### Keyboard bindings
