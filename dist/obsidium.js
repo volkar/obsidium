@@ -1,5 +1,5 @@
 /**
- * Obsidium 1.0.1
+ * Obsidium 1.0.2
  * Fullscreen image lightbox with zoom, pan, smooth transitions, and keyboard / touch navigation - zero dependencies
  * Obsidium is a descendant of the 2016 Obsidian library that was never released.
  *
@@ -173,11 +173,18 @@ class Obsidium {
             const formattedArray = []
             elementsArray.forEach((element) => {
                 if (element.tagName.toLowerCase() === this.params.sourceElements) {
-                    formattedArray.push({
+                    const tmpElementArray = {
                         src: element.dataset.src,
                         preview: element.src || element.dataset.preview,
-                        title: element.title || element.dataset.title
-                    })
+                        title: element.title || element.dataset.title,
+                    }
+                    if (element.dataset.exif) {
+                        const exif = JSON.parse(element.dataset.exif)
+                        if (exif) {
+                            tmpElementArray.exif = exif
+                        }
+                    }
+                    formattedArray.push(tmpElementArray)
                 }
             })
             this.elements = formattedArray
