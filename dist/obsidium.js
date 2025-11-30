@@ -1,5 +1,5 @@
 /**
- * Obsidium 1.0.2
+ * Obsidium 1.0.3
  * Fullscreen image lightbox with zoom, pan, smooth transitions, and keyboard / touch navigation - zero dependencies
  * Obsidium is a descendant of the 2016 Obsidian library that was never released.
  *
@@ -145,6 +145,7 @@ class Obsidium {
         // Cleans up event listeners and removes the lightbox from the DOM.
         // Delete event listeners
         document.removeEventListener('pointerup', this.#onDocumentPointerUp)
+        document.removeEventListener('pointercancel', this.#onDocumentPointerUp)
         window.removeEventListener('mousedown', this.#onWindowMouseDown)
         document.removeEventListener('keydown', this.#onDocumentKeyDown)
         // Delete lightbox from the DOM
@@ -403,6 +404,8 @@ class Obsidium {
 
         // Mouse or touch
         document.addEventListener('pointerup', this.#onDocumentPointerUp)
+        document.addEventListener('pointercancel', this.#onDocumentPointerUp)
+
         ;[this.img1, this.img2].forEach((el) => {
             el.addEventListener('pointerdown', (e) => {
                 // Capture the pointer

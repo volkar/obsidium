@@ -45,6 +45,10 @@
     pointer-events: none;
     z-index: 1;
     opacity: 0;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
 }
 .has-thumbnails .obsidium-wrapper {
     height: calc(100% - (var(--thumbnail-gap) * 2 + var(--thumbnail-size)));
@@ -79,10 +83,14 @@
     user-select: none;
     position: relative;
     z-index: 2;
-
+    touch-action: none;
     background-repeat: no-repeat;
     background-size: cover;
     background-blend-mode: darken;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 .obsidium-image.zoomed {
