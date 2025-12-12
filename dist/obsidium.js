@@ -1,6 +1,6 @@
 /**
- * Obsidium 1.0.3
- * Fullscreen image lightbox with zoom, pan, smooth transitions, and keyboard / touch navigation - zero dependencies
+ * Obsidium 1.1.0
+ * A fully featured, dependency-free lightbox component for displaying image, video and text collections
  * Obsidium is a descendant of the 2016 Obsidian library that was never released.
  *
  * https://obsidium.syntheticsymbiosis.com
@@ -90,6 +90,8 @@ class Obsidium {
         this.prevWrapper.classList.remove('active')
         this.#removeWrapperAnimationClasses()
         this.#resetZoom()
+        // Stop current video if any
+        this.#stopCurrentVideo()
         // Return focus
         if (this.returnFocusElement) {
             this.returnFocusElement.focus()
@@ -113,7 +115,7 @@ class Obsidium {
 
     hideInterface() {
         // Hides the lightbox interface if hidden.
-        if (this.zoomLevel === 0 && this.contentType === 'image' && this.options.hide !== false) {
+        if (this.zoomLevel === 0 && (this.contentType === 'image' || this.contentType === 'video') && this.options.hide !== false) {
             this.lightbox.classList.add('interface-hidden')
             this.interfaceHidden = true
             this.#updateElementsVisibility()
@@ -193,6 +195,24 @@ class Obsidium {
             // Source is an array
             this.elements = this.params.source
         }
+
+        // Fill content type for elements
+        this.elements.forEach((element) => {
+            if (!element.src) {
+                element.type = 'text'
+            } else {
+                // Check if it's a video
+                if (element.src.toLowerCase().endsWith('.mp4') ||
+                    element.src.toLowerCase().endsWith('.webm') ||
+                    element.src.toLowerCase().endsWith('.mov') ||
+                    element.src.toLowerCase().endsWith('.avi') ||
+                    element.src.toLowerCase().endsWith('.wmv')) {
+                    element.type = 'video'
+                } else {
+                    element.type = 'image'
+                }
+            }
+        })
     }
 
     #createLightbox() {
@@ -201,12 +221,14 @@ class Obsidium {
             <div class="obsidium-container">
                 <div class="obsidium-wrapper" data-wrapper="1">
                     <img src="" alt="" class="obsidium-image" data-img="1">
+                    <video src="" alt="" class="obsidium-video" data-video="1" controls></video>
                     <div class="obsidium-content-wrapper" data-content="1"><div class="obsidium-content-box"><div class="obsidium-content-body"></div></div></div>
                     <div class="obsidium-title"><div data-title="1"></div></div>
                     <div class="obsidium-wrapper-background" data-bg="1"></div>
                 </div>
                 <div class="obsidium-wrapper" data-wrapper="2">
                     <img src="" alt="" class="obsidium-image" data-img="2">
+                    <video src="" alt="" class="obsidium-video" data-video="2" controls></video>
                     <div class="obsidium-content-wrapper" data-content="2"><div class="obsidium-content-box"><div class="obsidium-content-body"></div></div></div>
                     <div class="obsidium-title"><div data-title="2"></div></div>
                     <div class="obsidium-wrapper-background" data-bg="2"></div>
@@ -243,6 +265,8 @@ class Obsidium {
         this.img2 = this.lightbox.querySelector('[data-img="2"]')
         this.content1 = this.lightbox.querySelector('[data-content="1"]')
         this.content2 = this.lightbox.querySelector('[data-content="2"]')
+        this.video1 = this.lightbox.querySelector('[data-video="1"]')
+        this.video2 = this.lightbox.querySelector('[data-video="2"]')
         this.wrapper1 = this.lightbox.querySelector('[data-wrapper="1"]')
         this.wrapper2 = this.lightbox.querySelector('[data-wrapper="2"]')
         this.title1 = this.lightbox.querySelector('[data-title="1"]')
@@ -264,6 +288,7 @@ class Obsidium {
         // Dynamic elements
         this.currentWrapper = this.wrapper1
         this.currentTitle = this.title1
+        this.currentVideo = this.video1
         this.currentImage = this.img1
         this.currentContent = this.content1
         this.prevWrapper = this.wrapper2
@@ -310,7 +335,6 @@ class Obsidium {
             this.lightbox.classList.remove('obsidium-theme-' + oldOptions.theme)
         }
 
-
         // Lightbox is open, change state based on new settings
         if (this.lightbox.classList.contains('active')) {
             if (this.zoomLevel > 0 && this.options.zoom === false) {
@@ -348,8 +372,8 @@ class Obsidium {
         this.#setElementVisibility(this.zoomInBtn, (!this.interfaceHidden && this.contentType === 'image') || this.zoomLevel > 0)
         this.#setElementVisibility(this.zoomRatioText, this.zoomLevel > 0)
         this.#setElementVisibility(this.counterText, !this.interfaceHidden && this.zoomLevel === 0)
-        this.#setElementVisibility(this.currentTitle, !this.interfaceHidden && this.zoomLevel === 0 && this.contentType === 'image')
-        this.#setElementVisibility(this.thumbnails, !this.interfaceHidden && this.zoomLevel === 0 && this.contentType === 'image')
+        this.#setElementVisibility(this.currentTitle, !this.interfaceHidden && this.zoomLevel === 0 && (this.contentType === 'image' || this.contentType === 'video'))
+        this.#setElementVisibility(this.thumbnails, !this.interfaceHidden && this.zoomLevel === 0 && (this.contentType === 'image' || this.contentType === 'video'))
         this.#setElementVisibility(this.interfaceBtn, this.zoomLevel === 0)
         this.#setElementVisibility(this.prevBtn, !this.interfaceHidden && this.zoomLevel === 0 && this.elements.length > 1)
         this.#setElementVisibility(this.nextBtn, !this.interfaceHidden && this.zoomLevel === 0 && this.elements.length > 1)
@@ -614,10 +638,18 @@ class Obsidium {
         }
     }
 
+    #stopCurrentVideo() {
+        if (this.contentType === 'video' && this.currentVideo.src) {
+            this.currentVideo.pause()
+        }
+    }
+
     #showOverlay(index, direction) {
         // Displays the image overlay for the given index and handles overlay transition/animation.
         this.currentIndex = index
         const element = this.elements[index]
+        // Stop current video if any
+        this.#stopCurrentVideo()
 
         if (this.options.thumbnails === true) {
             // Remove prev active thumbnail class
@@ -646,6 +678,7 @@ class Obsidium {
         if (this.activeWrapperNumber === 1) {
             this.currentWrapper = this.wrapper2
             this.currentImage = this.img2
+            this.currentVideo = this.video2
             this.currentContent = this.content2
             this.currentTitle = this.title2
             this.currentInfo = this.info2
@@ -654,6 +687,7 @@ class Obsidium {
         } else {
             this.currentWrapper = this.wrapper1
             this.currentImage = this.img1
+            this.currentVideo = this.video1
             this.currentContent = this.content1
             this.currentTitle = this.title1
             this.currentInfo = this.info1
@@ -662,31 +696,41 @@ class Obsidium {
         }
         // Reset image (if already loaded)
         this.currentImage.src = ''
+        // Reset video (if already loaded)
+        this.currentVideo.src = ''
         // Reset preview
         this.currentImage.style.backgroundImage = ''
         // Reset content (if already loaded)
         this.currentContent.querySelector('.obsidium-content-body').textContent = ''
         // Set counter text
         this.counterText.textContent = `${index + 1} / ${this.elements.length}`
-        if (element.src) {
+        if (element.src && (!element.type || element.type === 'image')) {
             // Image type
             this.contentType = 'image'
             this.currentWrapper.classList.remove('obsidium-type-content')
+            this.currentWrapper.classList.remove('obsidium-type-video')
             this.currentWrapper.classList.add('obsidium-type-image')
-            this.lightbox.classList.remove('obsidium-wrapper-type-content')
-            this.lightbox.classList.add('obsidium-wrapper-type-image')
+            this.lightbox.classList.remove('force-hide-thumbnails')
             this.currentImage.src = element.src
             if (element.preview) {
                 // Set low-resolution preview for background, while high-resolution image is loading
                 this.currentImage.style.backgroundImage = 'url(' + element.preview + ')'
             }
+        } else if (element.type === 'video') {
+            // Video type
+            this.contentType = 'video'
+            this.currentWrapper.classList.remove('obsidium-type-text')
+            this.currentWrapper.classList.remove('obsidium-type-image')
+            this.currentWrapper.classList.add('obsidium-type-video')
+            this.lightbox.classList.remove('force-hide-thumbnails')
+            this.currentVideo.src = element.src
         } else if (element.text || element.element) {
             // Text content type
             this.contentType = 'text'
             this.currentWrapper.classList.remove('obsidium-type-image')
+            this.currentWrapper.classList.remove('obsidium-type-video')
             this.currentWrapper.classList.add('obsidium-type-content')
-            this.lightbox.classList.remove('obsidium-wrapper-type-image')
-            this.lightbox.classList.add('obsidium-wrapper-type-content')
+            this.lightbox.classList.add('force-hide-thumbnails')
             const elementDest = this.currentContent.querySelector('.obsidium-content-body')
             if (element.text) {
                 // Just a text, use innerHTML in case of HTML tags
@@ -855,7 +899,9 @@ class Obsidium {
             }
             if (nextElement && nextElement.src) {
                 // Exist and is image
-                this.preload1.src = nextElement.src
+                if (!nextElement.type || nextElement.type === 'image') {
+                    this.preload1.src = nextElement.src
+                }
             }
         }
 
@@ -885,7 +931,9 @@ class Obsidium {
 
                 if (secondNextElement && secondNextElement.src) {
                     // Exist and is image
-                    this.preload2.src = secondNextElement.src
+                    if (!secondNextElement.type || secondNextElement.type === 'image') {
+                        this.preload2.src = secondNextElement.src
+                    }
                 }
             }, 100)
         }

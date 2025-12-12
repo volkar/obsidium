@@ -50,6 +50,7 @@
     -webkit-backface-visibility: hidden;
     transform: translateZ(0);
 }
+
 .has-thumbnails .obsidium-wrapper {
     height: calc(100% - (var(--thumbnail-gap) * 2 + var(--thumbnail-size)));
 }
@@ -141,7 +142,8 @@
     top: 50%;
     transform: translateY(-50%);
 }
-.has-thumbnails:not(.obsidium-wrapper-type-content) .obsidium-prev {
+
+.has-thumbnails:not(.force-hide-thumbnails) .obsidium-prev {
     top: calc(50% - (var(--thumbnail-gap) * 2 + var(--thumbnail-size)) / 2);
 }
 
@@ -153,7 +155,8 @@
     top: 50%;
     transform: translateY(-50%);
 }
-.has-thumbnails:not(.obsidium-wrapper-type-content) .obsidium-next {
+
+.has-thumbnails:not(.force-hide-thumbnails) .obsidium-next {
     top: calc(50% - (var(--thumbnail-gap) * 2 + var(--thumbnail-size)) / 2);
 }
 
@@ -170,13 +173,16 @@
     bottom: 0;
     right: 0;
 }
+
 .has-thumbnails .obsidium-info {
     bottom: calc(var(--thumbnail-gap) * 2 + var(--thumbnail-size));
 }
+
 .has-thumbnails.interface-hidden .obsidium-info {
     bottom: 0;
 }
-.obsidium-wrapper-type-content .obsidium-info {
+
+.force-hide-thumbnails .obsidium-info {
     bottom: 0;
 }
 
@@ -203,13 +209,16 @@
     bottom: 0;
     left: 0;
 }
+
 .has-thumbnails .obsidium-interface {
     bottom: calc(var(--thumbnail-gap) * 2 + var(--thumbnail-size));
 }
+
 .has-thumbnails.interface-hidden .obsidium-interface {
     bottom: 0;
 }
-.obsidium-wrapper-type-content .obsidium-interface {
+
+.force-hide-thumbnails .obsidium-interface {
     bottom: 0;
 }
 
@@ -255,7 +264,7 @@
     pointer-events: none;
 }
 
-.obsidium-title > div {
+.obsidium-title>div {
     text-align: center;
     border-radius: 10rem;
     padding: 0.2rem 1rem;
@@ -265,8 +274,9 @@
     line-height: 1.2em;
     font-size: 0.9em;
 }
+
 @media screen and (min-width: 768px) {
-    .obsidium-title > div {
+    .obsidium-title>div {
         font-size: 1em;
     }
 }
@@ -290,10 +300,12 @@
     max-height: calc(100vh - 2.5rem);
     overflow: auto;
 }
+
 .has-thumbnails .obsidium-info-wrapper {
     bottom: calc(var(--thumbnail-gap) * 2 + var(--thumbnail-size) + 2.5rem);
     max-height: calc(100vh - (var(--thumbnail-gap) * 2 + var(--thumbnail-size) + 4rem));
 }
+
 .info .obsidium-info-wrapper {
     opacity: 1;
     pointer-events: all;
@@ -313,12 +325,15 @@
 .obsidium-info-keybindings:not(:first-child) {
     margin-top: 1.4rem;
 }
+
 .obsidium-info-keybindings p {
     margin: 0 0 0.7rem 0;
 }
+
 .obsidium-info-keybindings p:last-child {
     margin: 0;
 }
+
 .obsidium-info-key {
     font-weight: 600;
     padding: 0.2rem 0.4rem;
@@ -335,7 +350,7 @@
     border-radius: 0.3rem;
 }
 
-.obsidium-info-exif > div {
+.obsidium-info-exif>div {
     box-sizing: border-box;
     padding: 0.25rem 0.5rem;
     flex: 0 0 50%;
@@ -346,30 +361,67 @@
     gap: 0.4rem;
 }
 
-.obsidium-info-exif > div.obsidium-info-exif-full {
+.obsidium-info-exif>div.obsidium-info-exif-full {
     flex: 0 0 100%;
 }
 
-.obsidium-info-exif > div svg {
+.obsidium-info-exif>div svg {
     width: 1.2rem;
     height: auto;
 }
-.obsidium-info-exif > div svg.obsidium-info-svg-small {
+
+.obsidium-info-exif>div svg.obsidium-info-svg-small {
     width: 1.1rem;
     margin-right: 0.1rem;
 }
+
 .obsidium-info-gps {
     margin-top: 0.7rem;
 }
 
 /* Content type */
 
-.obsidium-type-content .obsidium-wrapper > img {
+.obsidium-type-content .obsidium-image {
+    display: none;
+}
+
+.obsidium-type-content .obsidium-video {
     display: none;
 }
 
 .obsidium-type-image .obsidium-content-wrapper {
     display: none;
+}
+
+.obsidium-type-image .obsidium-video {
+    display: none;
+}
+
+.obsidium-type-video .obsidium-image {
+    display: none;
+}
+
+.obsidium-type-video .obsidium-content-wrapper {
+    display: none;
+}
+
+/* Video content */
+
+.obsidium-video {
+    position: relative;
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    touch-action: none;
+    transition: none;
+    user-select: none;
+    position: relative;
+    z-index: 2;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
 }
 
 /* Text content */
@@ -383,6 +435,7 @@
     z-index: 1;
     overflow: auto;
 }
+
 .obsidium-content-box {
     display: flex;
     flex-flow: row nowrap;
@@ -398,6 +451,7 @@
     padding: 2.5rem;
     border-radius: 0.5rem;
 }
+
 @media screen and (min-width: 768px) {
     .obsidium-content-body {
         padding: 2rem;
@@ -439,9 +493,11 @@
     margin: var(--thumbnail-gap) calc(var(--thumbnail-gap) / 2);
     border-radius: 0.2rem;
 }
+
 .obsidium-thumbnail.active {
     opacity: 1;
 }
+
 @media (hover: hover) {
     .obsidium-thumbnail:hover {
         opacity: 1;
@@ -477,39 +533,49 @@
     color: #ffffff;
     background: #141820ea;
 }
+
 .obsidium-theme-dark .obsidium-image {
     box-shadow: 0 0.3em 1em #00000030;
     background-color: #00000030;
 }
+
 .obsidium-theme-dark .obsidium-btn {
     color: #ffffff;
 }
+
 .obsidium-theme-dark .obsidium-btn:focus-visible {
     outline: 2px dotted #657193ff;
 }
+
 .obsidium-theme-dark .obsidium-zoom-ratio,
 .obsidium-theme-dark .obsidium-counter,
-.obsidium-theme-dark .obsidium-title > div {
+.obsidium-theme-dark .obsidium-title>div {
     color: #ffffff;
     text-shadow: 0 0 0.3rem #000000, 0 0 0.5rem #000000;
 }
+
 .obsidium-theme-dark .obsidium-info-wrapper {
     color: #ffffff;
     background: #141820ea;
     box-shadow: 0 0.3em 1em #00000030;
 }
+
 .obsidium-theme-dark .obsidium-info-key {
     background: #000000;
 }
+
 .obsidium-theme-dark .obsidium-info-exif {
     border: 1px dashed #ffffff33;
 }
+
 .obsidium-theme-dark .obsidium-info-gps a {
     color: #ffffff;
 }
+
 .obsidium-theme-dark .obsidium-thumbnail {
     background-color: #000000;
 }
+
 .obsidium-content-body {
     background-color: #00000044;
 }
@@ -520,38 +586,48 @@
     color: #181a1d;
     background: #f4f7fdea;
 }
+
 .obsidium-theme-light .obsidium-image {
     box-shadow: 0 0.3em 1em #181a1d20;
     background-color: #181a1d30;
 }
+
 .obsidium-theme-light .obsidium-btn {
     color: #181a1d;
 }
+
 .obsidium-theme-light .obsidium-btn:focus-visible {
     outline: 2px dotted #657193ff;
 }
+
 .obsidium-theme-light .obsidium-zoom-ratio {
     color: #181a1d;
 }
+
 .obsidium-theme-light .obsidium-counter,
-.obsidium-theme-light .obsidium-title > div {
+.obsidium-theme-light .obsidium-title>div {
     color: #ffffff;
     text-shadow: 0 0 0.3rem #000000;
 }
+
 .obsidium-theme-light .obsidium-info-wrapper {
     color: #181a1d;
     background: #f4f7fdea;
     box-shadow: 0 0.3em 1em #181a1d14;
 }
+
 .obsidium-theme-light .obsidium-info-key {
     background: #ffffff;
 }
+
 .obsidium-theme-light .obsidium-info-exif {
     border: 1px dashed #181a1d33;
 }
+
 .obsidium-theme-light .obsidium-info-gps a {
     color: #181a1d;
 }
+
 .obsidium-theme-light .obsidium-thumbnail {
     background-color: #ffffff;
 }
@@ -579,6 +655,7 @@
         transform: translateX(0);
         opacity: 1;
     }
+
     to {
         transform: translateX(4em);
         opacity: 0;
@@ -590,6 +667,7 @@
         transform: translateX(-4em);
         opacity: 0;
     }
+
     to {
         transform: translateX(0);
         opacity: 1;
@@ -601,6 +679,7 @@
         transform: translateX(0);
         opacity: 1;
     }
+
     to {
         transform: translateX(-4em);
         opacity: 0;
@@ -612,6 +691,7 @@
         transform: translateX(4em);
         opacity: 0;
     }
+
     to {
         transform: translateX(0);
         opacity: 1;

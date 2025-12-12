@@ -1,6 +1,6 @@
 # Obsidium
 
-**A fully featured, dependency-free lightbox component for displaying image and text collections**
+**A fully featured, dependency-free lightbox component for displaying image, video and text collections**
 
 Obsidium is a vanilla JavaScript lightbox viewer with smooth transitions, keyboard navigation, thumbnails strip and variable zoom with drag-to-pan functionality. Features intuitive controls, touch support for mobile devices, and works seamlessly with any image gallery. Zero dependencies.
 
@@ -19,6 +19,7 @@ See it in action: [obsidium.syntheticsymbiosis.com](https://obsidium.syntheticsy
 -   **Customization** - Fine-grained control over visuals and behavior.
 -   **Zoom levels** - Adjustable zoom levels via buttons or keyboard shortcuts.
 -   **Animations** - Multiple built-in transition animations.
+-   **Video** - Supports HTML5 video.
 -   **Preloading** - Preloads the next two slides for smooth navigation.
 -   **Text content** - Supports HTML and plain text slides.
 -   **Thumbnails** - Thumbnail strip navigation.
