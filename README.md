@@ -6,6 +6,10 @@ Obsidium is a vanilla JavaScript lightbox viewer with smooth transitions, keyboa
 
 ![Preview](https://github.com/volkar/obsidium/blob/main/preview.jpg?raw=true)
 
+## Vue 3 / Nuxt 4 version
+
+It's right [here](https://github.com/volkar/obsidium-vue)!
+
 ## Live demo
 
 See it in action: [obsidium.syntheticsymbiosis.com](https://obsidium.syntheticsymbiosis.com)
