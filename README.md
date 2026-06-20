@@ -360,9 +360,11 @@ const lumosaic = new Lumosaic("lumosaic", images).init().then(() => {
 })
 ```
 
-## Browser Support
+## ❤️ Support
 
-Obsidium works in all modern browsers.
+Obsidium is completely free and open-source. If it made your frontend work a little brighter, you can fuel its future updates via the **Sponsor** button or through my [Support Page](https://support.syntheticsymbiosis.com).
+
+Your contributions go directly towards project maintenance, late-night caffeine, and I will *definitely* not use them to save up for a 1969 Ford Mustang. Promise.
 
 ## License
 
