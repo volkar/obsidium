@@ -25,8 +25,8 @@ See it in action: [obsidium.syntheticsymbiosis.com](https://obsidium.syntheticsy
 -   **Animations** - Multiple built-in transition animations.
 -   **Video** - Supports HTML5 video.
 -   **Preloading** - Preloads the next two slides for smooth navigation.
--   **Text content** - Supports HTML and plain text slides.
 -   **Thumbnails** - Thumbnail strip navigation.
+-   **Text content** - Supports HTML and plain text slides.
 -   **Keyboard** - Full keyboard navigation and accessibility features.
 -   **EXIF** - Optional display of EXIF metadata when available.
 
